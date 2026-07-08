@@ -1,0 +1,15 @@
+/*
+Theme Name: 日本時効援用通知書作成代行センター
+Theme URI: https://syoumetujikou-hyogo.jp
+Author: あくつ行政書士事務所
+Author URI: https://syoumetujikou-hyogo.jp
+Description: 日本時効援用通知書作成代行センター公式テーマ。固定ページは管理者がデザイン固定、ブログ記事のみ投稿機能で更新可能。header.php / footer.php で全ページ共通のヘッダー・フッターを提供。
+Version: 1.0.0
+Requires at least: 6.0
+Tested up to: 6.5
+Requires PHP: 7.4
+License: Proprietary
+Text Domain: syoumetujikou
+*/
+
+/* 本体CSSは assets/css/theme.css を functions.php の wp_enqueue_style で読み込んでいます */
