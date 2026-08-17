@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://syoumetujikou-hyogo.jp/sitemap.xml
