@@ -128,7 +128,7 @@ document.getElementById('checkButton').addEventListener('click',function(){
   document.getElementById('checkResult').classList.toggle('hidden',!(answered&&complete));
   document.getElementById('checkStop').classList.toggle('hidden',!(answered&&!complete));
   detailFlow.classList.toggle('hidden',!(answered&&complete));
-  if(answered&&complete) detailFlow.scrollIntoView({behavior:'smooth',block:'start'});
+  if(answered&&complete) document.getElementById('checkResult').scrollIntoView({behavior:'smooth',block:'start'});
 });
 document.getElementById('hearingForm').addEventListener('submit',async function(e){
   e.preventDefault();
