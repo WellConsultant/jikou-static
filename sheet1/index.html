@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>時効援用通知書作成用ヒアリングフォーム（作業版）</title>
+  <style>
+    :root{font-family:system-ui,-apple-system,BlinkMacSystemFont,"Hiragino Kaku Gothic ProN","Yu Gothic",sans-serif;color:#1f2937;background:#f4f7fb;line-height:1.7}body{margin:0}.wrap{max-width:820px;margin:0 auto;padding:28px 16px 64px}.card{background:#fff;border:1px solid #dbe3ee;border-radius:14px;padding:24px;margin:16px 0;box-shadow:0 4px 14px #17345d0d}h1{font-size:1.55rem;line-height:1.4;margin:0 0 12px;color:#123b67}h2{font-size:1.15rem;color:#123b67;border-left:4px solid #2f75b5;padding-left:10px;margin-top:0}label{display:block;font-weight:650;margin:15px 0 5px}input,select,textarea{box-sizing:border-box;width:100%;padding:10px 11px;border:1px solid #b9c7d8;border-radius:8px;font:inherit;background:#fff}textarea{min-height:90px;resize:vertical}.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.option{display:flex;gap:8px;align-items:flex-start;font-weight:400;margin:7px 0}.option input{width:auto;margin-top:7px}.hint{color:#5d6b7d;font-size:.92rem}.notice{background:#eef6ff;border-left:4px solid #2f75b5;padding:12px 14px;border-radius:6px}.danger{background:#fff7ed;border-left-color:#c2410c}.success{background:#ecfdf3;border-left-color:#16834b}.hidden{display:none}.required::after{content:" 必須";font-size:.75rem;color:#b42318;font-weight:500}.actions{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.button{border:0;border-radius:8px;background:#1f5f96;color:white;padding:12px 18px;font:inherit;cursor:pointer;text-decoration:none;display:inline-block}.button.secondary{background:#e7eef6;color:#123b67}#status{font-weight:650}.small{font-size:.85rem;color:#667085}.termsbox{background:#f8fafc;border:1px solid #dbe3ee;padding:14px;border-radius:8px}.termsbox a{text-decoration:underline;color:#164e7d}@media(max-width:620px){.grid{grid-template-columns:1fr}.card{padding:18px}}
+  </style>
+</head>
+<body>
+<main class="wrap">
+  <section class="card">
+    <h1>時効援用通知書作成用ヒアリングフォーム</h1>
+    <p>まず3つの質問にお答えください。3つとも「はい」の場合、続いて通知書作成に必要な情報をご入力いただきます。</p>
+    <p class="hint">わからない場合や不明な場合は空欄で大丈夫です。分かる範囲でご入力ください。</p>
+    <div class="notice danger"><strong>取扱範囲の確認</strong><br>当フォームは、時効援用通知書の作成・電子内容証明による発送までを対象としています。債権者との交渉・和解、裁判・差押えへの対応、個別の法律判断は対象外です。</div>
+  </section>
+
+  <section class="card" id="checkFlow">
+    <h2>最初に3つの確認</h2>
+    <p class="hint">この3つだけで時効援用が確定するものではありません。回答内容と資料を確認したうえで、担当者が対応可否を確認します。</p>
+    <label class="required">最後の支払いから、5年以上経っていますか</label>
+    <select id="check1" required><option value="">選択してください</option><option value="yes">はい</option><option value="no">いいえ</option><option value="unknown">分からない</option></select>
+    <label class="required">この間、支払う意思を示していませんか</label>
+    <select id="check2" required><option value="">選択してください</option><option value="yes">はい</option><option value="no">いいえ</option><option value="unknown">分からない</option></select>
+    <label class="required">「時効を援用します」と書面で伝えたいですか</label>
+    <select id="check3" required><option value="">選択してください</option><option value="yes">はい</option><option value="no">いいえ</option><option value="unknown">分からない</option></select>
+    <div class="actions"><button class="button" type="button" id="checkButton">3つの回答を確認する</button></div>
+    <div id="checkResult" class="notice success hidden" role="status"><strong>おめでとうございます。時効援用ができる可能性があります。</strong><br>続いて、以下の質問にお答えください。</div>
+    <div id="checkStop" class="notice danger hidden" role="status">現時点の回答だけでは、時効援用ができる可能性を確認できません。分からない点がある場合は、資料をご用意のうえ、担当者へご相談ください。</div>
+  </section>
+
+  <form id="hearingForm">
+  <div id="detailFlow" class="hidden">
+    <section class="card"><h2>1. 依頼内容</h2>
+      <label class="required">対象の種類</label>
+      <label class="option"><input type="radio" name="target" value="携帯電話料金" required>携帯電話料金</label>
+      <label class="option"><input type="radio" name="target" value="NHK受信料">NHK受信料</label>
+      <label class="option"><input type="radio" name="target" value="その他">その他（対象を下欄に記入）</label>
+      <label for="targetDetail">対象の詳しい内容</label><input id="targetDetail" name="targetDetail">
+      <div class="grid"><div><label for="dispatchDate">発送希望日</label><input id="dispatchDate" name="dispatchDate" type="date"></div><div><label for="phone">連絡可能な電話番号</label><input id="phone" name="phone" type="tel"></div></div>
+    </section>
+
+    <section class="card"><h2>2. 受付範囲の確認</h2>
+      <label class="option"><input type="checkbox" required>債権者との交渉・和解を依頼するものではありません。</label>
+      <label class="option"><input type="checkbox" required>裁判・支払督促・差押えへの対応を依頼するものではありません。</label>
+      <label class="option"><input type="checkbox" required>消費者金融、クレジット会社、債権回収会社、医療費、滞納家賃などではありません。</label>
+      <label class="option"><input type="checkbox" required>個別の法律判断が必要な場合は、弁護士への相談が必要になることを確認しました。</label>
+    </section>
+
+    <section class="card"><h2>3. 債権者の情報</h2>
+      <p class="hint">わからない場合や不明な場合は空欄で大丈夫です。請求書・督促状に記載がある場合は、そのとおりにご入力ください。</p>
+      <label for="creditorName">債権者の正式名称</label><input id="creditorName" name="creditorName" placeholder="請求書・督促状に記載のとおり">
+      <div class="grid"><div><label for="creditorZip">郵便番号</label><input id="creditorZip" name="creditorZip"></div><div><label for="creditorTel">電話番号</label><input id="creditorTel" name="creditorTel" type="tel"></div></div>
+      <label for="creditorAddress">住所</label><textarea id="creditorAddress" name="creditorAddress"></textarea>
+      <label for="creditorRep">代表者の役職・氏名</label><input id="creditorRep" name="creditorRep" placeholder="例：代表取締役 ○○ ○○">
+      <label for="creditorDept">部署名・担当名</label><input id="creditorDept" name="creditorDept">
+    </section>
+
+    <section class="card"><h2>4. ご本人（債務者）の情報</h2><p class="hint">わからない場合や不明な場合は空欄で大丈夫です。分かる範囲でご入力ください。</p>
+      <div class="grid"><div><label class="required" for="name">氏名</label><input id="name" name="name" required></div><div><label for="kana">フリガナ</label><input id="kana" name="kana"></div></div>
+      <div class="grid"><div><label class="required" for="birth">生年月日</label><input id="birth" name="birth" type="date" required></div><div><label class="required" for="zip">郵便番号</label><input id="zip" name="zip" required></div></div>
+      <label class="required" for="address">住所</label><textarea id="address" name="address" required></textarea>
+      <label for="oldInfo">旧住所・旧姓など</label><textarea id="oldInfo" name="oldInfo"></textarea>
+    </section>
+
+    <section class="card"><h2>5. 契約・請求の情報</h2><p class="hint">わからない場合や不明な場合は空欄で大丈夫です。資料に記載がある項目だけご入力ください。</p>
+      <label for="contractNo">契約番号・会員番号・請求番号</label><input id="contractNo" name="contractNo">
+      <label for="service">利用会社・ブランド名</label><input id="service" name="service" placeholder="例：NTTドコモ、NHK">
+      <div class="grid"><div><label for="contractDate">契約日・利用開始日</label><input id="contractDate" name="contractDate" type="date"></div><div><label for="cancelDate">解約日・最後に利用した日</label><input id="cancelDate" name="cancelDate" type="date"></div></div>
+      <label class="required" for="lastPayment">最後に支払った日（不明の場合は「不明」と入力）</label><input id="lastPayment" name="lastPayment" required placeholder="年月日または不明">
+      <div class="grid"><div><label for="initialAmount">当初の請求額（円）</label><input id="initialAmount" name="initialAmount" inputmode="numeric"></div><div><label for="currentAmount">現在の請求額（円）</label><input id="currentAmount" name="currentAmount" inputmode="numeric"></div></div>
+      <label for="claimDetail">請求内容</label><textarea id="claimDetail" name="claimDetail" placeholder="通話料、端末代、受信料など"></textarea>
+    </section>
+
+    <section class="card"><h2>6. 時効期間中の事情</h2>
+      <p class="hint">わからない場合や不明な場合は空欄で大丈夫です。「ある」「不明」を選んだ場合も、分かる範囲で下欄にご記入ください。担当者が確認します。</p>
+      <label class="required">最後の支払い後に一部でも支払いましたか</label><select name="partialPayment" required><option value="">選択してください</option><option>ない</option><option>ある</option><option>不明</option></select>
+      <label class="required">債権者へ「支払う」「分割で払う」などと伝えましたか</label><select name="acknowledgement" required><option value="">選択してください</option><option>ない</option><option>ある</option><option>不明</option></select>
+      <label class="required">分割払い・和解書・確認書などに署名しましたか</label><select name="settlement" required><option value="">選択してください</option><option>ない</option><option>ある</option><option>不明</option></select>
+      <label class="required">裁判所から訴状・支払督促などが届きましたか</label><select name="court" required><option value="">選択してください</option><option>ない</option><option>ある</option><option>不明</option></select>
+      <label class="required">判決・支払督促・差押え・強制執行などがありましたか</label><select name="enforcement" required><option value="">選択してください</option><option>ない</option><option>ある</option><option>不明</option></select>
+      <label for="historyDetail">ある／不明の場合の時期・内容</label><textarea id="historyDetail" name="historyDetail"></textarea>
+    </section>
+
+    <section class="card"><h2>7. 添付資料と送付先</h2>
+      <p class="hint">わからない場合や不明な場合は空欄で大丈夫です。添付できない場合も、そのまま次へ進めます。</p>
+      <label class="required" for="attachmentAvailable">請求書・督促状・契約書・信用情報・裁判書類などを添付できますか</label>
+      <select id="attachmentAvailable" name="attachmentAvailable" required><option value="">選択してください</option><option value="yes">はい、添付できます</option><option value="no">いいえ、添付できません</option></select>
+      <div id="attachmentArea">
+        <label for="files">添付する資料</label><input id="files" name="files" type="file" multiple accept="image/*,.pdf">
+      </div>
+      <p class="small">この作業版ではファイルは送信・保存されません。実運用では安全なアップロード先を設定してください。</p>
+      <label class="required" for="email">あなたのメールアドレス</label><input id="email" name="email" type="email" required>
+      <label class="required option"><input type="checkbox" required>入力内容と個人情報・添付資料の取扱いを確認しました。</label>
+      <label for="notes">補足・担当者へ伝えたいこと</label><textarea id="notes" name="notes"></textarea>
+    </section>
+
+    <section class="card"><h2>8. 料金・相談・規約の確認とお申し込み</h2>
+      <div class="notice"><strong>料金：1件 15,000円（税別）</strong><br>携帯電話料金・NHK受信料のどちらも同額です。追加料金・成功報酬・相談料はありません。電子内容証明の発送実費を含みます。複数の債権者へ同時に発送する場合は、1件ごとに料金が発生します。</div>
+      <p class="hint">すぐに申し込まず相談したい場合は、<a href="https://syoumetujikou-hyogo.jp/chat/" target="_blank" rel="noopener">AIチャットで相談する</a>こともできます。</p>
+      <div class="termsbox"><p>お申し込み前に、<a href="https://syoumetujikou-hyogo.jp/terms/" target="_blank" rel="noopener">利用規約を必ずお読みください</a>。</p>
+      <label class="option"><input type="checkbox" id="termsAgree" required>利用規約を読み、サービスの内容、業務範囲、料金、返金規定、結果の不保証、個人情報の取扱いに同意します。</label></div>
+      <div class="actions"><button class="button" type="submit">入力内容を確認して申し込む</button><button class="button secondary" type="reset">リセット</button><span id="status" role="status"></span></div>
+      <div id="paymentArea" class="notice hidden"><strong>お申し込み内容を確認しました。</strong><br>次に、決済ページでお申し込み・お支払いを行ってください。<br><a class="button" href="https://buy.stripe.com/5kQaEYcexbG96rA3AS6c00J" target="_blank" rel="noopener">お申し込み・お支払いへ進む</a></div>
+      <p class="small">この作業版では、入力内容を外部へ送信・保存しません。実運用では、回答保存と決済完了の連携を設定してください。</p>
+    </section>
+  </div>
+  </form>
+</main>
+<script>
+const checks=[document.getElementById('check1'),document.getElementById('check2'),document.getElementById('check3')];
+const detailFlow=document.getElementById('detailFlow');
+const attachmentAvailable=document.getElementById('attachmentAvailable');
+const attachmentArea=document.getElementById('attachmentArea');
+attachmentAvailable.addEventListener('change',function(){attachmentArea.classList.toggle('hidden',this.value==='no');});
+document.getElementById('checkButton').addEventListener('click',function(){
+  const values=checks.map(el=>el.value);
+  const complete=values.every(value=>value==='yes');
+  const answered=values.every(Boolean);
+  document.getElementById('checkResult').classList.toggle('hidden',!(answered&&complete));
+  document.getElementById('checkStop').classList.toggle('hidden',!(answered&&!complete));
+  detailFlow.classList.toggle('hidden',!(answered&&complete));
+  if(answered&&complete) detailFlow.scrollIntoView({behavior:'smooth',block:'start'});
+});
+document.getElementById('hearingForm').addEventListener('submit',function(e){
+  e.preventDefault();
+  if(detailFlow.classList.contains('hidden')){document.getElementById('checkFlow').scrollIntoView({behavior:'smooth'});return;}
+  document.getElementById('status').textContent='入力内容を確認しました（作業版・外部送信は行いません）。';
+  document.getElementById('paymentArea').classList.remove('hidden');
+  document.getElementById('paymentArea').scrollIntoView({behavior:'smooth',block:'center'});
+});
+</script>
+</body>
+</html>
