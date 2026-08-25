@@ -123,7 +123,8 @@
       <p class="hint">すぐに申し込まず相談したい場合は、<a href="https://syoumetujikou-hyogo.jp/chat/" target="_blank" rel="noopener">AIチャットで相談する</a>こともできます。</p>
       <div class="termsbox"><p>お申し込み前に、<a href="https://syoumetujikou-hyogo.jp/terms/" target="_blank" rel="noopener">利用規約を必ずお読みください</a>。</p>
       <label class="required option"><input type="checkbox" id="termsAgree" required>利用規約を読み、サービスの内容、業務範囲、料金、返金規定、結果の不保証、個人情報の取扱いに同意します。</label></div>
-      <div class="actions"><button class="button" type="submit">入力内容を確認して申し込む</button><button class="button secondary" type="reset">リセット</button><span id="status" role="status"></span></div>
+      <div class="actions"><button class="button" type="submit">ヒアリング入力を送信する</button><button class="button secondary" type="reset">リセット</button><span id="status" role="status"></span></div>
+      <p class="small">ヒアリング入力を送信後、相談・お申し込み、決済の順に進みます。</p>
       <div id="paymentArea" class="notice success hidden"><strong>お申し込みありがとうございます。</strong><br>お支払い方法をお選びください。</div>
       <div id="paymentChoices" class="hidden">
         <label class="option"><input type="radio" name="paymentMethod" value="card">クレジットカードで支払う</label>
@@ -197,7 +198,7 @@ document.getElementById('hearingForm').addEventListener('submit',async function(
     const response=await fetch('https://traingo.fp-1.info/api/public/jikou-hearing',{method:'POST',body:payload});
     if(!response.ok) throw new Error('HTTP '+response.status);
     try{sessionStorage.removeItem(draftKey);}catch(_){/* storage unavailable */}
-    window.location.href='thanks.html';
+    window.location.href='next.html';
   }catch(error){status.textContent='申込受付メールを送信できませんでした。';console.error(error);}
 });
 document.querySelectorAll('input[name="paymentMethod"]').forEach(function(el){el.addEventListener('change',function(){
