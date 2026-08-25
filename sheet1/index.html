@@ -103,7 +103,13 @@
       <div class="termsbox"><p>お申し込み前に、<a href="https://syoumetujikou-hyogo.jp/terms/" target="_blank" rel="noopener">利用規約を必ずお読みください</a>。</p>
       <label class="option"><input type="checkbox" id="termsAgree" required>利用規約を読み、サービスの内容、業務範囲、料金、返金規定、結果の不保証、個人情報の取扱いに同意します。</label></div>
       <div class="actions"><button class="button" type="submit">入力内容を確認して申し込む</button><button class="button secondary" type="reset">リセット</button><span id="status" role="status"></span></div>
-      <div id="paymentArea" class="notice hidden"><strong>お申し込み内容を確認しました。</strong><br>次に、決済ページでお申し込み・お支払いを行ってください。<br><a class="button" href="https://buy.stripe.com/5kQaEYcexbG96rA3AS6c00J" target="_blank" rel="noopener">お申し込み・お支払いへ進む</a></div>
+      <div id="paymentArea" class="notice success hidden"><strong>お申し込みありがとうございます。</strong><br>お支払い方法をお選びください。</div>
+      <div id="paymentChoices" class="hidden">
+        <label class="option"><input type="radio" name="paymentMethod" value="card">クレジットカードで支払う</label>
+        <label class="option"><input type="radio" name="paymentMethod" value="bank">銀行振込で支払う</label>
+        <div id="cardPayment" class="notice hidden"><strong>クレジットカード決済</strong><br>Stripeの決済ページへ進んでお支払いください。<br><a class="button" href="https://buy.stripe.com/5kQaEYcexbG96rA3AS6c00J" target="_blank" rel="noopener">クレジットカード決済へ進む</a></div>
+        <div id="bankPayment" class="notice hidden"><strong>銀行振込</strong><br>銀行振込を希望する旨を受付メールでご案内します。現在、この作業版では振込先口座の表示・受付メールの送信は行いません。実運用では確定済みの振込先を表示し、入金確認後に作成を開始します。</div>
+      </div>
       <p class="small">この作業版では、入力内容を外部へ送信・保存しません。実運用では、回答保存と決済完了の連携を設定してください。</p>
     </section>
   </div>
@@ -129,8 +135,13 @@ document.getElementById('hearingForm').addEventListener('submit',function(e){
   if(detailFlow.classList.contains('hidden')){document.getElementById('checkFlow').scrollIntoView({behavior:'smooth'});return;}
   document.getElementById('status').textContent='入力内容を確認しました（作業版・外部送信は行いません）。';
   document.getElementById('paymentArea').classList.remove('hidden');
+  document.getElementById('paymentChoices').classList.remove('hidden');
   document.getElementById('paymentArea').scrollIntoView({behavior:'smooth',block:'center'});
 });
+document.querySelectorAll('input[name="paymentMethod"]').forEach(function(el){el.addEventListener('change',function(){
+  document.getElementById('cardPayment').classList.toggle('hidden',this.value!=='card');
+  document.getElementById('bankPayment').classList.toggle('hidden',this.value!=='bank');
+});});
 </script>
 </body>
 </html>
