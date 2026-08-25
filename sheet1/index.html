@@ -96,11 +96,11 @@
 
     <section class="card"><h2>6. 時効期間中の事情</h2>
       <p class="hint">わからない場合や不明な場合は空欄で大丈夫です。「ある」「不明」を選んだ場合も、分かる範囲で下欄にご記入ください。担当者が確認します。</p>
-      <label class="required">最後の支払い後に一部でも支払いましたか</label><select name="partialPayment" required><option value="">選択してください</option><option>ない</option><option>ある</option><option>不明</option></select>
-      <label class="required">債権者へ「支払う」「分割で払う」などと伝えましたか</label><select name="acknowledgement" required><option value="">選択してください</option><option>ない</option><option>ある</option><option>不明</option></select>
-      <label class="required">分割払い・和解書・確認書などに署名しましたか</label><select name="settlement" required><option value="">選択してください</option><option>ない</option><option>ある</option><option>不明</option></select>
-      <label class="required">裁判所から訴状・支払督促などが届きましたか</label><select name="court" required><option value="">選択してください</option><option>ない</option><option>ある</option><option>不明</option></select>
-      <label class="required">判決・支払督促・差押え・強制執行などがありましたか</label><select name="enforcement" required><option value="">選択してください</option><option>ない</option><option>ある</option><option>不明</option></select>
+      <label class="required">最後の支払い後に一部でも支払いましたか</label><div class="radio-row"><label class="option"><input type="radio" name="partialPayment" value="ない" required>ない</label><label class="option"><input type="radio" name="partialPayment" value="ある">ある</label><label class="option"><input type="radio" name="partialPayment" value="不明">不明</label></div>
+      <label class="required">債権者へ「支払う」「分割で払う」などと伝えましたか</label><div class="radio-row"><label class="option"><input type="radio" name="acknowledgement" value="ない" required>ない</label><label class="option"><input type="radio" name="acknowledgement" value="ある">ある</label><label class="option"><input type="radio" name="acknowledgement" value="不明">不明</label></div>
+      <label class="required">分割払い・和解書・確認書などに署名しましたか</label><div class="radio-row"><label class="option"><input type="radio" name="settlement" value="ない" required>ない</label><label class="option"><input type="radio" name="settlement" value="ある">ある</label><label class="option"><input type="radio" name="settlement" value="不明">不明</label></div>
+      <label class="required">裁判所から訴状・支払督促などが届きましたか</label><div class="radio-row"><label class="option"><input type="radio" name="court" value="ない" required>ない</label><label class="option"><input type="radio" name="court" value="ある">ある</label><label class="option"><input type="radio" name="court" value="不明">不明</label></div>
+      <label class="required">判決・支払督促・差押え・強制執行などがありましたか</label><div class="radio-row"><label class="option"><input type="radio" name="enforcement" value="ない" required>ない</label><label class="option"><input type="radio" name="enforcement" value="ある">ある</label><label class="option"><input type="radio" name="enforcement" value="不明">不明</label></div>
       <label for="historyDetail">ある／不明の場合の時期・内容</label><textarea id="historyDetail" name="historyDetail"></textarea>
     </section>
 
