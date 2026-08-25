@@ -119,7 +119,7 @@
 
     <section class="card"><h2>8. 料金・相談・規約の確認とお申し込み</h2>
       <div class="notice"><strong>料金：1件 15,000円（総額）</strong><br>携帯電話料金・NHK受信料のどちらも同額です。追加料金・成功報酬・相談料はありません。電子内容証明の発送実費を含みます。複数の債権者へ同時に発送する場合は、1件ごとに料金が発生します。</div>
-      <div class="notice" style="margin-top:16px"><strong>先に相談してからお申し込みいただけます</strong><br>入力内容に不安がある場合は、60分の相談予約をご利用ください。相談後に、このヒアリングフォームからお申し込みいただけます。<br><a href="https://traingo.fp-1.info/reserve/d7ed4f33-f24b-4e41-83c7-c9bdb3774dde/60m" target="_blank" rel="noopener">相談を予約する（60分）</a></div>
+      <div class="notice" style="margin-top:16px"><strong>先に相談してからお申し込みいただけます</strong><br>入力内容に不安がある場合は、60分の相談予約をご利用ください。相談後に、このヒアリングフォームからお申し込みいただけます。入力内容はこのブラウザに一時保存され、相談後に戻っても再入力せず続きから進められます。<br><a href="https://traingo.fp-1.info/reserve/d7ed4f33-f24b-4e41-83c7-c9bdb3774dde/60m" target="_blank" rel="noopener">相談を予約する（60分）</a></div>
       <p class="hint">すぐに申し込まず相談したい場合は、<a href="https://syoumetujikou-hyogo.jp/chat/" target="_blank" rel="noopener">AIチャットで相談する</a>こともできます。</p>
       <div class="termsbox"><p>お申し込み前に、<a href="https://syoumetujikou-hyogo.jp/terms/" target="_blank" rel="noopener">利用規約を必ずお読みください</a>。</p>
       <label class="required option"><input type="checkbox" id="termsAgree" required>利用規約を読み、サービスの内容、業務範囲、料金、返金規定、結果の不保証、個人情報の取扱いに同意します。</label></div>
@@ -152,6 +152,29 @@ const checks=[document.getElementById('check1'),document.getElementById('check2'
 const detailFlow=document.getElementById('detailFlow');
 const attachmentAvailable=document.getElementById('attachmentAvailable');
 const attachmentArea=document.getElementById('attachmentArea');
+const draftKey='jikou-hearing-draft-v1';
+function saveDraft(){
+  const draft={};
+  document.querySelectorAll('#hearingForm input, #hearingForm select, #hearingForm textarea').forEach(el=>{
+    if(!el.name || el.type==='file') return;
+    if(el.type==='radio' || el.type==='checkbox') { if(el.checked) draft[el.name]=(draft[el.name]||[]).concat(el.value || 'on'); }
+    else draft[el.name]=el.value;
+  });
+  try{sessionStorage.setItem(draftKey,JSON.stringify(draft));}catch(_){/* storage unavailable */}
+}
+function restoreDraft(){
+  let draft={};
+  try{draft=JSON.parse(sessionStorage.getItem(draftKey)||'{}');}catch(_){return;}
+  document.querySelectorAll('#hearingForm input, #hearingForm select, #hearingForm textarea').forEach(el=>{
+    if(!el.name || el.type==='file' || !(el.name in draft)) return;
+    if(el.type==='radio' || el.type==='checkbox') el.checked=Array.isArray(draft[el.name]) && draft[el.name].includes(el.value || 'on');
+    else el.value=draft[el.name];
+  });
+  attachmentAvailable.dispatchEvent(new Event('change'));
+}
+restoreDraft();
+document.querySelectorAll('#hearingForm input, #hearingForm select, #hearingForm textarea').forEach(el=>el.addEventListener('input',saveDraft));
+document.querySelectorAll('#hearingForm input, #hearingForm select, #hearingForm textarea').forEach(el=>el.addEventListener('change',saveDraft));
 attachmentAvailable.addEventListener('change',function(){attachmentArea.classList.toggle('hidden',this.value==='no');});
 document.getElementById('checkButton').addEventListener('click',function(){
   const values=checks.map(el=>el.value);
@@ -173,6 +196,7 @@ document.getElementById('hearingForm').addEventListener('submit',async function(
     const payload=new FormData(); payload.append('name',data.get('name') || '申込者'); payload.append('email',data.get('email') || ''); payload.append('submissionKey',crypto.randomUUID()); payload.append('answersJson',JSON.stringify(rawFields)); payload.append('message',['【ヒアリングフォーム回答】',...answers,'添付ファイル名：'+files,'Thanksページ表示後に決済方法を選択します。'].join('\n')); payload.append('sourcePage',location.href); selectedFiles.forEach(file=>payload.append('files',file,file.name));
     const response=await fetch('https://traingo.fp-1.info/api/public/jikou-hearing',{method:'POST',body:payload});
     if(!response.ok) throw new Error('HTTP '+response.status);
+    try{sessionStorage.removeItem(draftKey);}catch(_){/* storage unavailable */}
     window.location.href='thanks.html';
   }catch(error){status.textContent='申込受付メールを送信できませんでした。';console.error(error);}
 });
