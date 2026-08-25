@@ -107,7 +107,7 @@
     <section class="card"><h2>7. 添付資料と送付先</h2>
       <p class="hint">わからない場合や不明な場合は空欄で大丈夫です。添付できない場合も、そのまま次へ進めます。</p>
       <label class="required" for="attachmentAvailable">請求書・督促状・契約書・信用情報・裁判書類などを添付できますか</label>
-      <select id="attachmentAvailable" name="attachmentAvailable" required><option value="">選択してください</option><option value="yes">はい、添付できます</option><option value="no">いいえ、添付できません</option></select>
+      <div class="radio-row" id="attachmentAvailable"><label class="option"><input type="radio" name="attachmentAvailable" value="yes" required>はい、添付できます</label><label class="option"><input type="radio" name="attachmentAvailable" value="no">いいえ、添付できません</label></div>
       <div id="attachmentArea">
         <label for="files">添付する資料</label><input id="files" name="files" type="file" multiple accept="image/*,.pdf">
       </div>
@@ -137,6 +137,7 @@
 const checkNames=['check1','check2','check3'];
 const detailFlow=document.getElementById('detailFlow');
 const attachmentAvailable=document.getElementById('attachmentAvailable');
+const attachmentValue=()=>document.querySelector('input[name="attachmentAvailable"]:checked')?.value || '';
 const attachmentArea=document.getElementById('attachmentArea');
 const draftKey='jikou-hearing-draft-v1';
 function saveDraft(){
@@ -161,7 +162,7 @@ function restoreDraft(){
 restoreDraft();
 document.querySelectorAll('#hearingForm input, #hearingForm select, #hearingForm textarea').forEach(el=>el.addEventListener('input',saveDraft));
 document.querySelectorAll('#hearingForm input, #hearingForm select, #hearingForm textarea').forEach(el=>el.addEventListener('change',saveDraft));
-attachmentAvailable.addEventListener('change',function(){attachmentArea.classList.toggle('hidden',this.value==='no');});
+attachmentAvailable.addEventListener('change',function(){attachmentArea.classList.toggle('hidden',attachmentValue()==='no');});
 document.getElementById('checkButton').addEventListener('click',function(){
   const values=checkNames.map(name=>document.querySelector('input[name="'+name+'"]:checked')?.value || '');
   const complete=values.every(value=>value==='yes');
