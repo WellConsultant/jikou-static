@@ -135,8 +135,10 @@ document.getElementById('hearingForm').addEventListener('submit',async function(
   if(detailFlow.classList.contains('hidden')){document.getElementById('checkFlow').scrollIntoView({behavior:'smooth'});return;}
   const status=document.getElementById('status'); status.textContent='申込受付メールを送信しています…';
   const data=new FormData(this); const selectedFiles=[...document.getElementById('files').files]; const files=selectedFiles.map(file=>file.name).join('、') || '添付なし';
+  const fieldLabels={}; this.querySelectorAll('label[for]').forEach(label=>{fieldLabels[label.htmlFor]=label.textContent.trim();}); Object.assign(fieldLabels,{target:'対象の種類',partialPayment:'最後の支払い後の一部支払い',acknowledgement:'債権者への支払意思表示',settlement:'分割払い・和解書等への署名',court:'裁判所からの書類',enforcement:'判決・差押え・強制執行等'});
+  const answers=[]; for(const [key,value] of data.entries()){if(key==='files') continue; const field=document.getElementById(key)||this.querySelector(`[name="${key}"]`); const label=fieldLabels[key] || (field && field.closest('label') ? field.closest('label').textContent.trim() : key); answers.push(`${label}: ${value || '（空欄）'}`);}
   try{
-    const payload=new FormData(); payload.append('name',data.get('name') || '申込者'); payload.append('email',data.get('email') || ''); payload.append('message',['対象：'+(data.get('target') || ''),'氏名：'+(data.get('name') || ''),'添付ファイル名：'+files,'Thanksページ表示後に決済方法を選択します。'].join('\n')); payload.append('sourcePage',location.href); selectedFiles.forEach(file=>payload.append('files',file,file.name));
+    const payload=new FormData(); payload.append('name',data.get('name') || '申込者'); payload.append('email',data.get('email') || ''); payload.append('message',['【ヒアリングフォーム回答】',...answers,'添付ファイル名：'+files,'Thanksページ表示後に決済方法を選択します。'].join('\n')); payload.append('sourcePage',location.href); selectedFiles.forEach(file=>payload.append('files',file,file.name));
     const response=await fetch('https://traingo.fp-1.info/api/public/jikou-hearing',{method:'POST',body:payload});
     if(!response.ok) throw new Error('HTTP '+response.status);
     window.location.href='thanks.html';
