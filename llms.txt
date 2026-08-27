@@ -1,0 +1,14 @@
+# 日本時効援用通知書作成代行センター
+
+携帯電話料金・NHK受信料を対象とした、消滅時効援用通知書の作成・発送支援サイトです。
+
+## 主なページ
+
+- トップ: https://syoumetujikou-hyogo.jp/
+- 携帯電話料金の時効援用: https://syoumetujikou-hyogo.jp/service/mobile/
+- NHK受信料の時効援用: https://syoumetujikou-hyogo.jp/service/nhk/
+- 料金と手続きの流れ: https://syoumetujikou-hyogo.jp/process/
+- よくあるご質問: https://syoumetujikou-hyogo.jp/faq/
+- お問合せ: https://syoumetujikou-hyogo.jp/contact/
+
+運営者は行政書士 阿久津和宏です。個別の法律判断、債権者との交渉、裁判・差押えへの対応は取扱範囲に含みません。
